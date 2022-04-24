@@ -8,9 +8,9 @@ header {
     display: flex;
     flex-direction: row;
     padding: 0 8.76%;
+    padding-left: calc(8.76% - 31px);
     height: 50px;
-    gap: 6.94%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: #E5E5E5;
 }
@@ -21,9 +21,10 @@ img {
 }
 
 nav ul {
+    width: 641px;
     display: flex;
     flex-direction: row;
-    gap: 21px;
+    justify-content: space-between;
     list-style-type: none;
     color: #959BA4
 }
