@@ -37,7 +37,6 @@ class CurrencyConverter {
     static start() {
         document.querySelectorAll('.page-opening').forEach(item => thClick(item));
         
-        
         const from = CurrencyConverter.from;
         const to = CurrencyConverter.to;
         const input = CurrencyConverter.input;
