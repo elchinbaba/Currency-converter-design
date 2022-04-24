@@ -135,8 +135,6 @@ class CurrencyConverter {
                 .catch(error => alert(error.message));
             }
             else {
-                alert("Input is not a number!");
-
                 event.target.value = CurrencyConverter.input;
             }
         });
