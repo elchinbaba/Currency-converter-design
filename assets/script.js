@@ -37,21 +37,20 @@ class CurrencyConverter {
     static start() {
         document.querySelectorAll('.page-opening').forEach(item => thClick(item));
         
-        document.querySelectorAll('.info').forEach(item => {
-            const from = CurrencyConverter.from;
-            const to = CurrencyConverter.to;
-            const input = CurrencyConverter.input;
+        
+        const from = CurrencyConverter.from;
+        const to = CurrencyConverter.to;
+        const input = CurrencyConverter.input;
+        fetch(CurrencyConverter.link + `?base=${from}&symbols=${to}`)
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('.from .info').innerText = `1 ${from} = ${round4(data.rates[to])} ${to}`;
+            document.querySelector('.to .info').innerText = `1 ${to} = ${round4(1/data.rates[to])} ${from}`;
 
-            fetch(CurrencyConverter.link + `?base=${from}&symbols=${to}`)
-            .then(response => response.json())
-            .then(data => {;
-                item.innerText = `1 ${from} = ${round4(data.rates[to])} ${to}`;
-
-                document.querySelector('input').value = input;
-                document.querySelector('.converted').innerText = round4(input*data.rates[to]);
-            })
-            .catch(error => alert(error.message));
-        });
+            document.querySelector('input').value = input;
+            document.querySelector('.converted').innerText = round4(input*data.rates[to]);
+        })
+        .catch(error => alert(error.message));
 
         CurrencyConverter.click_th();
         CurrencyConverter.input_input();
