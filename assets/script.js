@@ -122,10 +122,9 @@ class CurrencyConverter {
             if (!isNaN(value)) {
                 CurrencyConverter.input = value;
 
-                const from = CurrencyConverter.from;
                 const to = CurrencyConverter.to;
             
-                fetch(CurrencyConverter.link + `?base=${from}&symbols=${to}`)
+                fetch(CurrencyConverter.link + `?base=${CurrencyConverter.from}&symbols=${to}`)
                 .then(response => response.json())
                 .then(data => {
                     document.querySelector('.converted').innerText = round4(CurrencyConverter.input*data.rates[to]);
