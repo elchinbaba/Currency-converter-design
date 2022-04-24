@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency converter design</title>
+
+    <link rel="stylesheet" href="./assets/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="./assets/bank_a.svg" alt="logo">
+
+        <nav>
+            <ul>
+                <li><a href="#"><b>BANK</b></a></li>
+                <li><a href="#">BUSINESS</a></li>
+                <li><a href="#">INVESTMENTS</a></li>
+                <li><a href="#">INSURANCE</a></li>
+                <li><a href="#">MOBILE</a></li>
+                <li><a href="#">TRIPS</a</li>
+                <li><a href="#">ENTERTAINMENT</a></li>
+            </ul>
+        </nav>
+
+        <button>SIGN IN</button>
+    </header>
+
+    <main>
+        <section>
+            <h1>Online currency converter</h1>
+
+            <div class="converter">
+                <div class="from">
+                    <p>I have got</p>
+
+                    <table>
+                        <tr class="from">
+                            <th class="page-opening">AZN</th>
+                            <th>USD</th>
+                            <th>EUR</th>
+                            <th>GBP</th>
+                        </tr>
+                    </table>
+
+                    <div>
+                        <input type="text">
+
+                        <p class="info"></p>
+                    </div>
+                </div>
+
+                <div class="to">
+                    <p>I want to buy</p>
+
+                    <table>
+                        <tr class="to">
+                            <th>AZN</th>
+                            <th class="page-opening">USD</th>
+                            <th>EUR</th>
+                            <th>GBP</th>
+                        </tr>
+                    </table>
+
+                    <div>
+                        <p class="converted"></p>
+
+                        <p class="info">1 USD = 73.8896 AZN</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./assets/script.js"></script>
+</body>
+</html>
