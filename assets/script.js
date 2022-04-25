@@ -1,6 +1,4 @@
-function round4(number) {
-    return Math.round(number*10000)/10000;
-}
+const round4 = (number) => Math.round(number*10000)/10000;
 
 function thClick(th) {
     th.style.backgroundColor = "#833AE0";
@@ -32,7 +30,7 @@ class CurrencyConverter {
     static from = "AZN";
     static to = "USD";
     static link = 'https://api.exchangerate.host/latest';
-    static input = 5000;
+    static input = 10000;
 
     static start() {
         document.querySelectorAll('.page-opening').forEach(item => thClick(item));
@@ -47,12 +45,12 @@ class CurrencyConverter {
             document.querySelector('.to .info').innerText = `1 ${to} = ${round4(1/data.rates[to])} ${from}`;
 
             document.querySelector('input').value = input;
-            document.querySelector('.converted').innerText = round4(input*data.rates[to]);
+            document.querySelector('.input2').value = round4(input*data.rates[to]);
         })
         .catch(error => alert(error.message));
 
         CurrencyConverter.click_th();
-        CurrencyConverter.input_input();
+        CurrencyConverter.inputs_input();
     }
 
     static click_th() {
@@ -67,6 +65,10 @@ class CurrencyConverter {
 
         document.querySelectorAll('.from>th').forEach(element => {
             element.addEventListener('click', event => {
+                const input1 = document.querySelector('.input1');
+                input1.style.width = "231px";
+
+                CurrencyConverter.input = +document.querySelector('.input2').value;
                 CurrencyConverter.from = event.target.innerText;
                 from = CurrencyConverter.from;
 
@@ -77,20 +79,24 @@ class CurrencyConverter {
                         document.querySelector('.from .info').innerText = `1 ${from} = ${round4(data.rates[to])} ${to}`;
                         document.querySelector('.to .info').innerText = `1 ${to} = ${round4(1/data.rates[to])} ${from}`;
 
-                        document.querySelector('.converted').innerText = round4(CurrencyConverter.input*data.rates[to]);
+                        input1.value = round4(CurrencyConverter.input/data.rates[to]);
                     })
                     .catch(error => alert(error.message));
                 }
                 else {
                     document.querySelectorAll('.info').forEach(element => element.innerText = `1 ${from} = 1 ${to}`);
 
-                    document.querySelector('.converted').innerText = CurrencyConverter.input;
+                    input1.value = CurrencyConverter.input;
                 }
             });
         });
 
         document.querySelectorAll('.to>th').forEach(element => {
             element.addEventListener('click', event => {
+                const input2 = document.querySelector('.input2');
+                input2.style.width = "231px";
+
+                CurrencyConverter.input = +document.querySelector('.input1').value;
                 CurrencyConverter.to = event.target.innerText;
                 to = CurrencyConverter.to;
                 
@@ -101,21 +107,28 @@ class CurrencyConverter {
                         document.querySelector('.from .info').innerText = `1 ${from} = ${round4(1/data.rates[from])} ${to}`
                         document.querySelector('.to .info').innerText = `1 ${to} = ${round4(data.rates[from])} ${from}`;
 
-                        document.querySelector('.converted').innerText = round4(CurrencyConverter.input/data.rates[from]);
+                        input2.value = round4(CurrencyConverter.input/data.rates[from]);
                     })
                     .catch(error => alert(error.message));
                 }
                 else {
                     document.querySelectorAll('.info').forEach(element => element.innerText = `1 ${from} = 1 ${to}`);
 
-                    document.querySelector('.converted').innerText = CurrencyConverter.input;
+                    input2.value = CurrencyConverter.input;
                 }
             });
         });
     }
 
-    static input_input() {
-        document.querySelector('input').addEventListener('input', event => {
+    static inputs_input() {
+        const input1 = document.querySelector('.input1');
+        const input2 = document.querySelector('.input2');
+
+        input1.addEventListener('input', event => {
+            input1.style.width = "124px";
+            event.target.maxLength = "6";
+            input2.style.width = "231px";
+
             let value = event.target.value;
             value = +value.replace(',', '.');
 
@@ -127,7 +140,32 @@ class CurrencyConverter {
                 fetch(CurrencyConverter.link + `?base=${CurrencyConverter.from}&symbols=${to}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.querySelector('.converted').innerText = round4(CurrencyConverter.input*data.rates[to]);
+                    input2.value = round4(CurrencyConverter.input*data.rates[to]);
+                })
+                .catch(error => alert(error.message));
+            }
+            else {
+                event.target.value = CurrencyConverter.input;
+            }
+        });
+        
+        input2.addEventListener('input', event => {
+            input2.style.width = "124px";
+            event.target.maxLength = "6";
+            input1.style.width = "231px";
+
+            let value = event.target.value;
+            value = +value.replace(',', '.');
+
+            if (!isNaN(value)) {
+                CurrencyConverter.input = value;
+
+                const from = CurrencyConverter.from;
+            
+                fetch(CurrencyConverter.link + `?base=${CurrencyConverter.to}&symbols=${from}`)
+                .then(response => response.json())
+                .then(data => {
+                    input1.value = round4(CurrencyConverter.input*data.rates[from]);
                 })
                 .catch(error => alert(error.message));
             }
