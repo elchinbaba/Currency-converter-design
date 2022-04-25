@@ -30,7 +30,7 @@ class CurrencyConverter {
     static from = "AZN";
     static to = "USD";
     static link = 'https://api.exchangerate.host/latest';
-    static input = 10000;
+    static input = 5000;
 
     static start() {
         document.querySelectorAll('.page-opening').forEach(item => thClick(item));
